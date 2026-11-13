@@ -1,0 +1,929 @@
+{
+  "230107": {
+    "author": "东野圭吾",
+    "category": "精品小说",
+    "label": "最爱",
+    "rating": 3,
+    "title": "白夜行",
+    "updatedAt": "2026-09-27T11:51:10.488Z",
+    "why": "东野圭吾最佳著作。"
+  },
+  "574017": {
+    "author": "托马斯·皮凯蒂",
+    "category": "经济理财",
+    "label": "一般",
+    "rating": 1,
+    "title": "21世纪资本论",
+    "updatedAt": "2026-09-27T11:41:43.154Z",
+    "why": ""
+  },
+  "674048": {
+    "author": "傅高义",
+    "category": "政治军事",
+    "label": "最爱",
+    "rating": 3,
+    "title": "邓小平时代",
+    "updatedAt": "2026-09-27T11:36:52.554Z",
+    "why": "比较客观的讲述了那段历史，对了解中国当代历史和政治发展非常有帮助。"
+  },
+  "694734": {
+    "author": "R·P·费曼著 徐一鸿序",
+    "category": "科学技术",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "QED：光和物质的奇妙理论",
+    "updatedAt": "2026-09-27T11:45:06.281Z",
+    "why": ""
+  },
+  "758867": {
+    "author": "乔治·奥威尔",
+    "category": "",
+    "label": "最爱",
+    "rating": 3,
+    "title": "1984",
+    "updatedAt": "2026-09-27T11:57:57.241Z",
+    "why": "太经典了！"
+  },
+  "809704": {
+    "author": "陀思妥耶夫斯基",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "罪与罚",
+    "updatedAt": "2026-09-27T11:53:54.809Z",
+    "why": ""
+  },
+  "823534": {
+    "author": "肯·福莱特",
+    "category": "文学",
+    "label": "最爱",
+    "rating": 3,
+    "title": "巨人的陨落（全集）",
+    "updatedAt": "2026-09-27T11:50:35.085Z",
+    "why": "肯这种用虚构写历史的方式非常好看。"
+  },
+  "834464": {
+    "author": "余华",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "活着",
+    "updatedAt": "2026-09-27T11:53:45.727Z",
+    "why": ""
+  },
+  "838779": {
+    "author": "白先勇",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "台北人",
+    "updatedAt": "2026-09-27T11:45:45.437Z",
+    "why": "台湾的历史"
+  },
+  "842277": {
+    "author": "[土]奥尔罕·帕慕克",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "天真的和感伤的小说家（珍藏版）",
+    "updatedAt": "2026-09-27T11:53:01.891Z",
+    "why": ""
+  },
+  "851658": {
+    "author": "托马斯·福斯特",
+    "category": "文学",
+    "label": "一般",
+    "rating": 1,
+    "title": "如何阅读一本文学书",
+    "updatedAt": "2026-09-27T11:53:20.591Z",
+    "why": ""
+  },
+  "857863": {
+    "author": "丹尼尔·凯斯",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "献给阿尔吉侬的花束",
+    "updatedAt": "2026-09-27T11:53:08.958Z",
+    "why": ""
+  },
+  "932101": {
+    "author": "海明威",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "丧钟为谁而鸣（译文名著精选）",
+    "updatedAt": "2026-09-27T11:47:58.177Z",
+    "why": "喜欢海明威"
+  },
+  "932173": {
+    "author": "[爱尔兰]詹姆斯·乔伊斯",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "都柏林人（译文名著精选）",
+    "updatedAt": "2026-09-27T11:44:04.495Z",
+    "why": "文笔太好"
+  },
+  "932177": {
+    "author": "简·奥斯丁",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "傲慢与偏见（译文名著精选）",
+    "updatedAt": "2026-09-27T11:53:11.624Z",
+    "why": ""
+  },
+  "932430": {
+    "author": "金庸",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "天龙八部（套装共5册）纯文字版",
+    "updatedAt": "2026-09-27T11:44:13.562Z",
+    "why": ""
+  },
+  "932498": {
+    "author": "莎拉·贝克韦尔",
+    "category": "哲学宗教",
+    "label": "一般",
+    "rating": 1,
+    "title": "存在主义咖啡馆：自由、存在和杏子鸡尾酒",
+    "updatedAt": "2026-09-27T11:43:52.409Z",
+    "why": ""
+  },
+  "933891": {
+    "author": "[美]史蒂芬·平克",
+    "category": "文学",
+    "label": "一般",
+    "rating": 1,
+    "title": "风格感觉：21世纪写作指南",
+    "updatedAt": "2026-09-27T11:46:34.853Z",
+    "why": ""
+  },
+  "22485612": {
+    "author": "[日]村上春树",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "1Q84 BOOK 3（10月－12月）",
+    "updatedAt": "2026-09-27T11:43:09.959Z",
+    "why": ""
+  },
+  "22485614": {
+    "author": "[日]村上春树",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "1Q84 BOOK 2（7月-9月）",
+    "updatedAt": "2026-09-27T11:42:44.876Z",
+    "why": "村上春树的世界总是那么迷人"
+  },
+  "22523868": {
+    "author": "迈克斯·泰格马克",
+    "category": "计算机",
+    "label": "最爱",
+    "rating": 3,
+    "title": "生命3.0：AI超级智能与伦理边界重构",
+    "updatedAt": "2026-09-27T11:50:01.096Z",
+    "why": ""
+  },
+  "22654746": {
+    "author": "温高力",
+    "category": "生活百科",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "温高力高尔夫教程",
+    "updatedAt": "2026-09-27T11:45:20.766Z",
+    "why": ""
+  },
+  "23187001": {
+    "author": "阿瑟·克拉克",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "童年的终结（同名美剧原著）",
+    "updatedAt": "2026-09-27T11:49:34.999Z",
+    "why": "喜欢经典科幻，这本小说还没有AI，可是把AI换做那里的外星人，一样适用。"
+  },
+  "23789204": {
+    "author": "邹振东",
+    "category": "社会文化",
+    "label": "一般",
+    "rating": 1,
+    "title": "弱传播",
+    "updatedAt": "2026-09-27T11:48:44.793Z",
+    "why": ""
+  },
+  "24275777": {
+    "author": "包刚升",
+    "category": "政治军事",
+    "label": "一般",
+    "rating": 1,
+    "title": "政治学通识",
+    "updatedAt": "2026-09-27T11:39:41.114Z",
+    "why": ""
+  },
+  "24918944": {
+    "author": "[日]村上春树",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "如果我们的语言是威士忌",
+    "updatedAt": "2026-09-27T11:48:22.925Z",
+    "why": ""
+  },
+  "24919677": {
+    "author": "毕飞宇",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "小说课",
+    "updatedAt": "2026-09-27T11:49:59.667Z",
+    "why": "加深文学鉴赏能力"
+  },
+  "25291560": {
+    "author": "[德]赫尔曼·黑塞",
+    "category": "精品小说",
+    "label": "一般",
+    "rating": 1,
+    "title": "荒原狼（译文经典）",
+    "updatedAt": "2026-09-27T11:47:59.341Z",
+    "why": ""
+  },
+  "25616642": {
+    "author": "列夫·托尔斯泰",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "安娜·卡列尼娜（果麦经典）",
+    "updatedAt": "2026-09-27T11:36:59.826Z",
+    "why": "经典文学"
+  },
+  "26407986": {
+    "author": "老舍",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "离婚（果麦经典）",
+    "updatedAt": "2026-09-27T11:51:42.520Z",
+    "why": ""
+  },
+  "26435421": {
+    "author": "莫言",
+    "category": "精品小说",
+    "label": "最爱",
+    "rating": 3,
+    "title": "蛙【中国诺奖得主代表作】",
+    "updatedAt": "2026-09-27T11:51:37.486Z",
+    "why": "记录了中国那段计划生育的荒唐历史。"
+  },
+  "27008322": {
+    "author": "弗兰克·梯利",
+    "category": "哲学宗教",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "西方哲学史",
+    "updatedAt": "2026-09-27T11:50:04.348Z",
+    "why": ""
+  },
+  "27423377": {
+    "author": "王跃文",
+    "category": "精品小说",
+    "label": "一般",
+    "rating": 1,
+    "title": "苍黄",
+    "updatedAt": "2026-09-27T11:42:27.639Z",
+    "why": ""
+  },
+  "28165041": {
+    "author": "俞军等",
+    "category": "经济理财",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "俞军产品方法论",
+    "updatedAt": "2026-09-27T11:53:51.294Z",
+    "why": ""
+  },
+  "29103036": {
+    "author": "J.D.塞林格",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "九故事",
+    "updatedAt": "2026-09-27T11:42:26.126Z",
+    "why": "文笔好"
+  },
+  "29348705": {
+    "author": "威尔·贡培兹",
+    "category": "艺术",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "现代艺术150年：一个未完成的故事",
+    "updatedAt": "2026-09-27T11:57:23.837Z",
+    "why": ""
+  },
+  "31231950": {
+    "author": "薛定谔",
+    "category": "科学技术",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "生命是什么（附《我的世界观》）",
+    "updatedAt": "2026-09-27T11:57:32.039Z",
+    "why": ""
+  },
+  "32055449": {
+    "author": "[美]亨利·詹姆斯",
+    "category": "文学",
+    "label": "一般",
+    "rating": 1,
+    "title": "螺丝在拧紧（果麦经典）",
+    "updatedAt": "2026-09-27T11:45:49.117Z",
+    "why": ""
+  },
+  "33628204": {
+    "author": "周岭",
+    "category": "",
+    "label": "不喜欢",
+    "rating": -1,
+    "title": "认知觉醒：开启自我改变的原动力",
+    "updatedAt": "2026-09-27T12:10:00.000Z",
+    "why": "没有深度，误人子弟"
+  },
+  "33642049": {
+    "author": "[土]奥尔罕·帕慕克",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "帕慕克别样的色彩系列：纯真博物馆",
+    "updatedAt": "2026-09-27T11:41:46.404Z",
+    "why": ""
+  },
+  "33810356": {
+    "author": "罗伯特·M.波西格",
+    "category": "精品小说",
+    "label": "一般",
+    "rating": 1,
+    "title": "禅与摩托车维修艺术",
+    "updatedAt": "2026-09-27T11:50:07.194Z",
+    "why": ""
+  },
+  "33820327": {
+    "author": "托马斯·哈代",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "德伯家的苔丝：一个纯洁的女人（人文社外国文学名著经典·网格本）",
+    "updatedAt": "2026-09-27T11:54:38.896Z",
+    "why": ""
+  },
+  "35276982": {
+    "author": "丛龙峰",
+    "category": "经济理财",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "组织的逻辑",
+    "updatedAt": "2026-09-27T11:39:12.379Z",
+    "why": ""
+  },
+  "35553434": {
+    "author": "凯瑟琳·埃班",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "仿制药的真相",
+    "updatedAt": "2026-09-27T11:49:03.188Z",
+    "why": "还可以，了解医药行业"
+  },
+  "36609079": {
+    "author": "沈从文",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "边城",
+    "updatedAt": "2026-09-27T11:44:25.649Z",
+    "why": "中国文学"
+  },
+  "37067786": {
+    "author": "黄黎原",
+    "category": "科学技术",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "贝叶斯的博弈：数学、思维与人工智能",
+    "updatedAt": "2026-09-27T11:44:46.733Z",
+    "why": "就是太难懂了"
+  },
+  "37651778": {
+    "author": "卡伦·霍妮",
+    "category": "心理",
+    "label": "一般",
+    "rating": 1,
+    "title": "我们时代的神经症人格（果麦经典）",
+    "updatedAt": "2026-09-27T11:45:10.765Z",
+    "why": ""
+  },
+  "38933073": {
+    "author": "J.D.塞林格",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "麦田里的守望者（出版70周年纪念版）",
+    "updatedAt": "2026-09-27T11:42:13.255Z",
+    "why": "喜欢男主人公的可爱与玩世不恭。"
+  },
+  "43896728": {
+    "author": "[法]米兰·昆德拉",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "不能承受的生命之轻（米兰·昆德拉作品系列·2022版）",
+    "updatedAt": "2026-09-27T11:39:51.597Z",
+    "why": "经典文学"
+  },
+  "3300016646": {
+    "author": "刘瑜",
+    "category": "政治军事",
+    "label": "最爱",
+    "rating": 3,
+    "title": "可能性的艺术：比较政治学30讲",
+    "updatedAt": "2026-09-27T11:37:47.427Z",
+    "why": "对世界政治的全貌有了比较深刻的介绍，民主还是独裁不是绝对的，是一个光谱。"
+  },
+  "3300024144": {
+    "author": "雷蒙德·钱德勒",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "漫长的告别",
+    "updatedAt": "2026-09-27T11:53:16.375Z",
+    "why": ""
+  },
+  "3300024217": {
+    "author": "马库斯·苏萨克",
+    "category": "文学",
+    "label": "最爱",
+    "rating": 3,
+    "title": "偷书贼",
+    "updatedAt": "2026-09-27T11:50:57.968Z",
+    "why": "同样的，用文学写历史，那段悲惨的二战。"
+  },
+  "3300024289": {
+    "author": "孔飞力",
+    "category": "历史",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "叫魂：1768年中国妖术大恐慌",
+    "updatedAt": "2026-09-27T11:45:05.435Z",
+    "why": "喜欢看这种关注平民百姓生活的历史"
+  },
+  "3300024943": {
+    "author": "刘震云",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "一句顶一万句（2022新版）",
+    "updatedAt": "2026-09-27T11:43:09.394Z",
+    "why": "道尽了中国人内心的弯弯绕绕。"
+  },
+  "3300025491": {
+    "author": "伊恩•斯图尔特",
+    "category": "科学技术",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "谁在掷骰子？不确定的数学",
+    "updatedAt": "2026-09-27T11:50:36.183Z",
+    "why": ""
+  },
+  "3300025964": {
+    "author": "郑执",
+    "category": "精品小说",
+    "label": "最爱",
+    "rating": 3,
+    "title": "仙症",
+    "updatedAt": "2026-09-27T11:52:56.343Z",
+    "why": "东北文学，我虽然是东北人，但是通过一些东北文学才更加了解那段历史。"
+  },
+  "3300035139": {
+    "author": "伊险峰 杨樱",
+    "category": "精品小说",
+    "label": "一般",
+    "rating": 1,
+    "title": "张医生与王医生",
+    "updatedAt": "2026-09-27T11:45:15.865Z",
+    "why": ""
+  },
+  "3300053612": {
+    "author": "布莱恩·格林",
+    "category": "哲学宗教",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "直到时间的尽头",
+    "updatedAt": "2026-09-27T11:47:16.988Z",
+    "why": ""
+  },
+  "3300056212": {
+    "author": "弗兰克·梯利",
+    "category": "哲学宗教",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "西方哲学史（增补修订版）",
+    "updatedAt": "2026-09-27T11:55:44.882Z",
+    "why": ""
+  },
+  "3300059339": {
+    "author": "安东尼·普拉卡尼斯  埃利奥特·阿伦森",
+    "category": "心理",
+    "label": "一般",
+    "rating": 1,
+    "title": "认知操纵：宣传如何影响我们的思想和行为（修订版）",
+    "updatedAt": "2026-09-27T11:43:38.325Z",
+    "why": ""
+  },
+  "3300059686": {
+    "author": "陈春成",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "夜晚的潜水艇",
+    "updatedAt": "2026-09-27T11:53:45.146Z",
+    "why": "文笔了得"
+  },
+  "3300061198": {
+    "author": "[日]村上春树",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "世界尽头与冷酷仙境（2023修订版）",
+    "updatedAt": "2026-09-27T11:40:04.582Z",
+    "why": ""
+  },
+  "3300061199": {
+    "author": "[日]村上春树",
+    "category": "文学",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "挪威的森林（2023修订版）",
+    "updatedAt": "2026-09-27T11:42:53.844Z",
+    "why": "喜欢这种调调"
+  },
+  "3300061955": {
+    "author": "孙晓迪",
+    "category": "文学",
+    "label": "一般",
+    "rating": 1,
+    "title": "可是，我开的是书店",
+    "updatedAt": "2026-09-27T11:43:32.442Z",
+    "why": ""
+  },
+  "3300062265": {
+    "author": "[英]布莱恩·麦基",
+    "category": "哲学宗教",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "哲学如何塑造了我",
+    "updatedAt": "2026-09-27T11:48:21.328Z",
+    "why": "喜欢哲学，就是没时间读完"
+  },
+  "3300062285": {
+    "author": "阿道斯•赫胥黎",
+    "category": "文学",
+    "label": "一般",
+    "rating": 1,
+    "title": "美丽新世界（反乌托邦三部曲）",
+    "updatedAt": "2026-09-27T11:52:57.057Z",
+    "why": ""
+  },
+  "3300064101": {
+    "author": "[英]克里斯·斯托克尔-沃克",
+    "category": "经济理财",
+    "label": "一般",
+    "rating": 1,
+    "title": "解密TikTok：中国的爆款应用如何改变世界",
+    "updatedAt": "2026-09-27T11:47:18.589Z",
+    "why": ""
+  },
+  "3300065341": {
+    "author": "吴琦",
+    "category": "社会文化",
+    "label": "一般",
+    "rating": 1,
+    "title": "多谈谈问题（单读33）",
+    "updatedAt": "2026-09-27T11:41:41.754Z",
+    "why": ""
+  },
+  "3300070103": {
+    "author": "段义孚",
+    "category": "人物传记",
+    "label": "一般",
+    "rating": 1,
+    "title": "我是谁？段义孚自传",
+    "updatedAt": "2026-09-27T11:43:35.125Z",
+    "why": ""
+  },
+  "3300072295": {
+    "author": "马伯庸",
+    "category": "历史",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "太白金星有点烦",
+    "updatedAt": "2026-09-27T11:43:50.895Z",
+    "why": "有点意思"
+  },
+  "3300076264": {
+    "author": "李光耀",
+    "category": "政治军事",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "李光耀观天下（精装版）",
+    "updatedAt": "2026-09-27T11:44:40.483Z",
+    "why": "从一个侧面写了中国与世界的关系"
+  },
+  "3300085869": {
+    "author": "[法]杰西·安佐斯佩",
+    "category": "医学健康",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "控糖革命",
+    "updatedAt": "2026-09-27T11:43:20.012Z",
+    "why": "健康"
+  },
+  "3300119145": {
+    "author": "[以]尤瓦尔·赫拉利",
+    "category": "社会文化",
+    "label": "一般",
+    "rating": 1,
+    "title": "智人之上 ——从石器时代到 AI 时代的信息网络简史",
+    "updatedAt": "2026-09-27T11:53:27.242Z",
+    "why": ""
+  },
+  "3300142059": {
+    "author": "[美]威廉·恩道尔",
+    "category": "经济理财",
+    "label": "一般",
+    "rating": 1,
+    "title": "石油战争：石油政治决定世界新秩序（增订版）",
+    "updatedAt": "2026-09-27T11:45:07.482Z",
+    "why": ""
+  },
+  "3300142877": {
+    "author": "[美]李飞飞",
+    "category": "人物传记",
+    "label": "一般",
+    "rating": 1,
+    "title": "我看见的世界：李飞飞自传",
+    "updatedAt": "2026-09-27T11:45:12.298Z",
+    "why": ""
+  },
+  "3300159706": {
+    "author": "分析师Boden",
+    "category": "经济理财",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "以日为鉴：衰退时代生存指南（微信读书特别版）",
+    "updatedAt": "2026-09-27T11:48:43.912Z",
+    "why": "喜欢看当代观察，了解社会"
+  },
+  "3300172809": {
+    "author": "阿菲",
+    "category": "个人成长",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "约会软件相亲实录",
+    "updatedAt": "2026-09-27T11:46:30.872Z",
+    "why": "女性视角的相亲，希望了解女性的两性心理，主要是为了泡妞。"
+  },
+  "3300201777": {
+    "author": "樊中恺",
+    "category": "计算机",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "半小时讲透芯片（轻科技）",
+    "updatedAt": "2026-09-27T11:53:57.344Z",
+    "why": ""
+  },
+  "3300210666": {
+    "author": "衍何文化",
+    "category": "政治军事",
+    "label": "最爱",
+    "rating": 3,
+    "title": "俄乌对决的幕后真相",
+    "updatedAt": "2026-09-27T11:40:53.670Z",
+    "why": "深刻的叙述了俄乌战争背后的故事。60万人丧命，任何借口都不能弥补这样的罪行。"
+  },
+  "3300213154": {
+    "author": "林军锋",
+    "category": "计算机",
+    "label": "最爱",
+    "rating": 3,
+    "title": "当AI开始自主进化，普通人最该守住什么？（轻科技）",
+    "updatedAt": "2026-09-27T11:47:14.591Z",
+    "why": "让我对AI发展和如何把持自己，有了很深的影响。"
+  },
+  "3300230446": {
+    "author": "纪静蓉",
+    "category": "精品小说",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "住小房子的女人",
+    "updatedAt": "2026-09-27T11:56:12.303Z",
+    "why": "有点意思"
+  },
+  "CB_1Co7X47ZyDAi6mK6ke8av1xc": {
+    "author": "Ian Stewart",
+    "category": "",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "Do Dice Play God?: The Mathematics of Uncertainty",
+    "updatedAt": "2026-09-27T11:39:52.097Z",
+    "why": ""
+  },
+  "CB_1KyFr6FrxD6b6iD6gXGniFQV": {
+    "author": "Raymond Chandler",
+    "category": "",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "The Long Goodbye",
+    "updatedAt": "2026-09-27T11:41:49.821Z",
+    "why": ""
+  },
+  "CB_1bQ0TE0VY0096jB6ke3DEBbn": {
+    "author": "Morgan Housel",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "The Psychology of Money: Timeless Lessons on Wealth, Greed, and Happiness",
+    "updatedAt": "2026-09-27T11:47:31.855Z",
+    "why": ""
+  },
+  "CB_2jtD81D947go6tG6sw3kHCjw": {
+    "author": "Giuliano da Empoli and Willard Wood",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "The Wizard of the Kremlin",
+    "updatedAt": "2026-09-27T11:43:29.642Z",
+    "why": "俄罗斯政治内幕"
+  },
+  "CB_2o23Gw3IgDVD6i36gX3Wp6YB": {
+    "author": "Steven Pinker",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "The Sense of Style: The Thinking Person’s Guide to Writing in the 21st Century",
+    "updatedAt": "2026-09-27T11:44:05.494Z",
+    "why": ""
+  },
+  "CB_2sB8Ot8RpGZt6in6gX7QI4L1": {
+    "author": "John Williams",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "Stoner",
+    "updatedAt": "2026-09-27T11:40:01.998Z",
+    "why": ""
+  },
+  "CB_2wCD7wD947go6tG6sw3rTG9l": {
+    "author": "Dan Gardner",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "The Surprising Factors That Determine the Fate of Every Project, from Home Renovations to Space Exploration and Everything In Between",
+    "updatedAt": "2026-09-27T11:45:46.167Z",
+    "why": ""
+  },
+  "CB_3oDAGjAGn50k6fy6gX0rY3I4": {
+    "author": "钟东升",
+    "category": "",
+    "label": "最爱",
+    "rating": 3,
+    "title": "血路弯弯",
+    "updatedAt": "2026-09-27T11:38:38.929Z",
+    "why": "这是我父亲写的我爷爷的自传，完整的记录了我爷爷从参军、红军长征、抗日战争、八年内战的历史。"
+  },
+  "CB_6YQCDOCBwA626la6keFqQ1uK": {
+    "author": "邹振东",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "弱传播",
+    "updatedAt": "2026-09-27T11:45:24.683Z",
+    "why": ""
+  },
+  "CB_6x2CPcCOP0P173v75P62b5Yl": {
+    "author": "Jorgenson, Eric",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "The Book of Elon: A Guide to Purpose and Success",
+    "updatedAt": "2026-09-27T11:55:18.298Z",
+    "why": ""
+  },
+  "CB_79T9od9nkEF26iS6gX2klCI5": {
+    "author": "Daniel Keyes",
+    "category": "",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "Flowers For Algernon",
+    "updatedAt": "2026-09-27T11:42:19.459Z",
+    "why": "感人"
+  },
+  "CB_7ckFLiFKnChT6uF6swF526mg": {
+    "author": "Agatha Christie",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "Endless Night",
+    "updatedAt": "2026-09-27T11:44:08.862Z",
+    "why": ""
+  },
+  "CB_8cv5Mb5OF9pS6lW6keFKbFrT": {
+    "author": "Bill Gifford",
+    "category": "",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "The Science and Art of Longevity",
+    "updatedAt": "2026-09-27T11:39:16.228Z",
+    "why": ""
+  },
+  "CB_Act4hP4ij0096jB6keCBEEOC": {
+    "author": "Bill Gates",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "The Promise and the Peril of the Digital Age",
+    "updatedAt": "2026-09-27T11:41:53.161Z",
+    "why": ""
+  },
+  "CB_BhDGQNGP79Dv75n75P61z07A": {
+    "author": "Joanna Stern",
+    "category": "",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "I Am Not a Robot",
+    "updatedAt": "2026-09-27T11:52:30.642Z",
+    "why": "出发点有点意思，但是感觉不够深刻。"
+  },
+  "CB_BlkD6KD4xDuL6mX6ke8DP13f": {
+    "author": "Stephen King",
+    "category": "",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "Holly",
+    "updatedAt": "2026-09-27T11:39:40.182Z",
+    "why": "斯蒂芬金的小说很好读，后劲十足，恐怖。"
+  },
+  "CB_CQw1B81B43Th6wP6x7DtTGed": {
+    "author": "Tegmark, Max",
+    "category": "",
+    "label": "最爱",
+    "rating": 3,
+    "title": "Life 3.0 Being Human in the Age of Artificial Intelligence (Max Tegmark) (Z-Library)",
+    "updatedAt": "2026-09-27T11:41:40.090Z",
+    "why": "AI对人类的影响还在路上，这本书猜想了12中未来，看起来都不值得憧憬。而人类仍然在AI发展的路上狂奔。"
+  },
+  "CB_DEoH2AH0OG2z6en6cMCyAD54": {
+    "author": "王小波",
+    "category": "",
+    "label": "最爱",
+    "rating": 3,
+    "title": "王小波全集",
+    "updatedAt": "2026-09-27T11:50:16.949Z",
+    "why": "喜欢王小波"
+  },
+  "CB_DZP0md0m820F6fH6gXDpQGuG": {
+    "author": "（俄）列夫·托尔斯泰 elib.cc",
+    "category": "",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "安娜·卡列尼娜(套装上下册) (智量文集)(elib.cc)",
+    "updatedAt": "2026-09-27T11:55:12.365Z",
+    "why": ""
+  },
+  "CB_DyXDRVDPeAE46pU6op6Ij3do": {
+    "author": "Mary K. Brooks",
+    "category": "",
+    "label": "一般",
+    "rating": 1,
+    "title": "China's Rise, Russia's Invasion, and America's Struggle to Defend the West",
+    "updatedAt": "2026-09-27T11:38:39.743Z",
+    "why": ""
+  },
+  "CB_Ge53zZ3y48Di6t86sw1c2Ahj": {
+    "author": "Bill Browder",
+    "category": "",
+    "label": "喜欢",
+    "rating": 2,
+    "title": "Red Notice: A True Story of High Finance, Murder, and One Man's Fight for Justice",
+    "updatedAt": "2026-09-27T11:51:44.735Z",
+    "why": ""
+  },
+  "CB_GiE9zC9w6Fm96ib6gX3O73EI": {
+    "author": "Daniel Kahneman",
+    "category": "",
+    "label": "最爱",
+    "rating": 3,
+    "title": "Thinking, Fast and Slow",
+    "updatedAt": "2026-09-27T11:39:11.514Z",
+    "why": "对于人类大脑有了更深刻的认知，system 1和2的思想对我影响较大。"
+  }
+}

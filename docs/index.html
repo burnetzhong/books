@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>我的书房账本</title>
+<meta name="description" content="微信读书、豆瓣和纸质书的阅读记录，以及对每本书的评价。">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="书房账本">
+<meta name="theme-color" content="#F2F4F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121816" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&display=swap">
+<style>
+:root{
+  --bg:#F2F4F1; --paper:#FBFCFA; --ink:#1A2320; --muted:#5E6B66; --line:#D9DFDB;
+  --accent:#2B5E7E; --accent-soft:#DCE7EE; --love:#B8323F; --love-soft:#F5DEE0;
+  --like:#2E7D5B; --like-soft:#DCEFE5; --meh:#8A7F6B; --meh-soft:#ECE8DF; --nope:#3D3A36; --bar:#9DB6C6;
+  --serif:"Noto Serif SC","Songti SC","STSong",serif;
+  --sans:-apple-system,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  color-scheme:dark;--bg:#121816;--paper:#19211E;--ink:#E4EAE6;--muted:#93A19B;--line:#2B3531;
+  --accent:#7FB2D3;--accent-soft:#1F3140;--love:#E0717C;--love-soft:#3A1F24;--like:#6CC49A;--like-soft:#193328;--meh:#B8AD97;--meh-soft:#2C2922;--nope:#D9D2C5;--bar:#3F6179;}}
+*{box-sizing:border-box}
+html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6}
+[hidden]{display:none!important}
+.wrap{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:32px 80px;display:flex;flex-direction:column;gap:40px}
+h1,h2{font-family:var(--serif);text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,5vw,40px);font-weight:900;letter-spacing:.02em}
+h2{font-size:22px;font-weight:600}
+.eyebrow{font-size:12px;letter-spacing:.12em;color:var(--muted)}
+.lede{color:var(--muted);max-width:60ch;margin:8px 0 0}
+.num{font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.stat{background:var(--paper);padding:14px 16px}
+.stat b{display:block;font-family:var(--serif);font-size:26px;font-weight:600}
+.stat span{font-size:13px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
+section{display:flex;flex-direction:column;gap:14px}
+.bars{display:flex;flex-direction:column;gap:6px}
+.bar{display:grid;grid-template-columns:5.5em 1fr 6.5em;align-items:center;gap:10px;font-size:13px}
+.bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar i{display:block;height:10px;background:var(--bar);border-radius:2px}
+.bar .v{color:var(--muted);text-align:right}
+.chart-box{overflow-x:auto}
+svg text{fill:var(--muted);font-size:11px;font-family:var(--sans)}
+.insight{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.insight p{margin:0}
+.toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
+.toolbar input[type=search]{flex:1 1 200px;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit}
+.chip{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.tally{font-size:13px;color:var(--muted);width:100%}
+.tally b{color:var(--ink)}
+.list{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:1fr auto;gap:6px 16px;padding:12px 4px;border-bottom:1px solid var(--line);align-items:center}
+.row[data-r="3"]{background:linear-gradient(90deg,var(--love-soft),transparent 70%)}
+.row .t{font-weight:600}
+.row .m{font-size:12.5px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
+.row .m .fin{color:var(--like)}
+.rate{display:flex;gap:4px}
+.rate button{font:inherit;font-size:13px;border:1px solid var(--line);background:var(--paper);color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer;white-space:nowrap}
+.rate button:focus-visible,.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rate button[data-v="3"][aria-pressed=true]{background:var(--love);border-color:var(--love);color:#fff}
+.rate button[data-v="2"][aria-pressed=true]{background:var(--like);border-color:var(--like);color:#fff}
+.rate button[data-v="1"][aria-pressed=true]{background:var(--meh);border-color:var(--meh);color:#fff}
+.rate button[data-v="-1"][aria-pressed=true]{background:var(--nope);border-color:var(--nope);color:var(--bg)}
+.row[data-r="-1"] .t{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.why{grid-column:1/-1;display:none}
+.row[data-r="3"] .why,.row[data-r="2"] .why,.row[data-r="-1"] .why{display:block}
+.why input{width:100%;padding:6px 10px;border:1px dashed var(--line);border-radius:6px;background:transparent;color:var(--ink);font:inherit;font-size:13px}
+.readonly .rate button,.readonly .why input,.readonly .del{pointer-events:none;opacity:.55}
+.readonly .add{display:none}
+.notice{border:1px solid var(--accent);background:var(--accent-soft);border-radius:6px;padding:10px 14px;font-size:14px}
+.notice a{color:var(--accent)}
+.more{align-self:center;margin-top:12px}
+.status{font-size:12.5px;color:var(--muted)}
+.status.err{color:var(--love)}
+.src{font-size:11px;line-height:1.6;padding:0 6px;border:1px solid var(--accent);border-radius:4px;color:var(--accent)}
+.stars{color:var(--meh);letter-spacing:1px}
+.quote{margin:4px 0 0;font-size:13px;color:var(--muted);max-width:62ch;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.del{font:inherit;font-size:12px;border:0;background:none;color:var(--love);cursor:pointer;padding:0}
+.add{border:1px dashed var(--line);border-radius:6px;padding:10px 14px;background:var(--paper)}
+.add summary{cursor:pointer;font-weight:600}
+#addform,#tokenform{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+#addform input,#addform select,#tokenform input{flex:1 1 160px;min-width:0;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit;font-size:14px}
+.connect{border-top:1px solid var(--line);padding-top:24px}
+.connect ol{margin:0;padding-left:1.4em;color:var(--muted);font-size:14px;max-width:62ch}
+.connect code{font-size:13px;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+@media (max-width:560px){.row{grid-template-columns:1fr}.rate button{flex:1}}
+@media (prefers-reduced-motion:no-preference){.rate button{transition:background .15s,color .15s}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow" id="asof">微信读书</div>
+    <h1>我的书房账本</h1>
+    <p class="lede" id="lede">微信读书、豆瓣和纸质书的全部阅读记录。下半部分可以给读过的书打标记，推荐书、写读书笔记都以这些标记为准。</p>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <section>
+    <div class="eyebrow">每年阅读时长（小时）</div>
+    <div class="chart-box"><svg id="years" viewBox="0 0 640 200" width="100%" style="min-width:480px" role="img" aria-label="每年阅读时长柱状图"></svg></div>
+  </section>
+
+  <div class="grid2">
+    <section><div class="eyebrow">偏好分类</div><div class="bars" id="cats"></div></section>
+    <section><div class="eyebrow">读得最多的书</div><div class="bars" id="longest"></div></section>
+  </div>
+  <div class="grid2">
+    <section><div class="eyebrow">偏好作者</div><div class="bars" id="authors"></div></section>
+    <section><div class="eyebrow">几点在读</div><div class="chart-box"><svg id="hours" viewBox="0 0 400 140" width="100%" style="min-width:320px" role="img" aria-label="24小时阅读分布"></svg></div><div class="status" id="timeWord"></div></section>
+  </div>
+
+  <section class="insight">
+    <h2>我读到的你</h2>
+    <div class="status">2026-09-27 的观察，数字是当时的。</div>
+    <p><b>两段人生。</b>2016 年就注册了，但真正开始读是 2022 年（87 小时），2023 年达到顶峰：一年 370 小时、349 天在读，几乎每天都读。之后逐年回落，2024 年 334 小时，2025 年 216 小时。</p>
+    <p><b>两条主线。</b>一条是文学：文学和社会小说加起来约 400 小时，占总时长三分之一。另一条是中国与世界的政治：《邓小平时代》是你笔记最多的书（121 条），还有比较政治学、《China's Rise, Russia's Invasion…》、习近平、俄乌、石油政治。2026 年经济理财第一次排到偏好分类的第一位。</p>
+    <p><b>偏爱的小说气质。</b>村上春树（5 本，48 小时）、塞林格（4 本）、托尔斯泰、《Stoner》、《献给阿尔吉侬的花束》、《漫长的告别》：大多写孤独的个体、内心的挣扎和一段被认真对待的人生。</p>
+    <p><b>英文原版读得不少。</b>读得最久的一本是《Merriam-Webster's Vocabulary Builder》（31 小时），前十名里有 8 本是英文书。</p>
+    <p><b>读得广，读完的少。</b>读过的书里只有约 29% 读完。很多书是翻一翻、取所需就放下了。所以只看“读完”不能判断你喜欢什么，这也是需要你自己标记的原因。</p>
+    <p><b>晚上 10 点是高峰。</b>下午和晚上 10–11 点读得最多，凌晨基本不读。</p>
+  </section>
+
+  <section id="mark">
+    <div>
+      <h2>标记你喜欢的书</h2>
+      <p class="lede">这里汇总了微信读书、豆瓣和你手动登记的纸质书。默认按“阅读痕迹”排序：笔记越多、读完了、读得越久、豆瓣星越高越靠前。点 <b>最爱</b>、<b>喜欢</b> 或 <b>不喜欢</b> 后，可以顺手写一句原因。标记会保存到 GitHub 仓库。</p>
+    </div>
+    <div class="notice" id="readonlyNote" hidden>现在是只读模式。要在这台设备上保存标记，先在页面底部<a href="#connect">连接 GitHub</a>。</div>
+    <div class="toolbar">
+      <input type="search" id="q" placeholder="搜索书名或作者" aria-label="搜索书名或作者">
+      <button class="chip" data-f="trace" aria-pressed="true">有阅读痕迹</button>
+      <button class="chip" data-f="fin" aria-pressed="false">读完的</button>
+      <button class="chip" data-f="paper" aria-pressed="false">豆瓣 / 纸质书</button>
+      <button class="chip" data-f="rated" aria-pressed="false">已标记</button>
+      <button class="chip" data-f="all" aria-pressed="false">全部</button>
+      <div class="tally" id="tally"></div>
+    </div>
+    <details class="add">
+      <summary>登记一本纸质书</summary>
+      <form id="addform">
+        <input id="add-t" required placeholder="书名" maxlength="120" aria-label="书名">
+        <input id="add-a" placeholder="作者（可选）" maxlength="80" aria-label="作者">
+        <select id="add-r" aria-label="评价"><option value="">评价（可选）</option><option value="3">最爱</option><option value="2">喜欢</option><option value="1">一般</option><option value="-1">不喜欢</option></select>
+        <input id="add-w" placeholder="一句话原因（可选）" maxlength="200" aria-label="原因">
+        <button type="submit" class="chip">登记</button>
+      </form>
+    </details>
+    <div class="list" id="list"><p class="status">正在加载…</p></div>
+    <button class="chip more" id="more" hidden>再显示 60 本</button>
+    <div class="status" id="dbstatus"></div>
+    <div class="status" id="srcinfo"></div>
+  </section>
+
+  <section class="connect" id="connect">
+    <h2>连接 GitHub</h2>
+    <p class="status" id="connstate"></p>
+    <div id="connhelp">
+      <ol>
+        <li>打开 GitHub 的 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">新建 Fine-grained token</a> 页面。</li>
+        <li>Repository access 选 <b>Only select repositories</b>，只勾 <code>burnetzhong/books</code>。</li>
+        <li>Permissions → Repository permissions → <b>Contents</b> 选 <b>Read and write</b>，其他保持不变。过期时间按你的习惯设。</li>
+        <li>生成后把 token 粘贴到下面。它只保存在这台设备的浏览器里，不会上传到别处。</li>
+      </ol>
+      <form id="tokenform">
+        <input id="token" type="password" autocomplete="off" placeholder="github_pat_…" aria-label="GitHub token">
+        <button type="submit" class="chip primary">连接</button>
+      </form>
+    </div>
+    <div><button class="chip" id="disconnect" type="button" hidden>断开这台设备</button></div>
+  </section>
+</div>
+
+<script>
+const OWNER='burnetzhong', REPO='books', BRANCH='main', DIR='docs/data/';
+const API=`https://api.github.com/repos/${OWNER}/${REPO}/contents/`;
+const AUTHOR={name:'burnetzhong',email:'2246288+burnetzhong@users.noreply.github.com'};
+const LABEL={3:'最爱',2:'喜欢',1:'一般','-1':'不喜欢'};
+const $=s=>document.querySelector(s);
+const hm=s=>{s=Math.round(s||0);const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?`${h}小时${m}分`:`${m}分钟`};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm=t=>String(t||'').split(/[:：（(【\[]/)[0].replace(/[\s·•\-—_,.，。!！?？"“”'’]/g,'').toLowerCase();
+
+// ---------- GitHub 存取 ----------
+let TOKEN='';
+try{TOKEN=localStorage.getItem('gh-token')||''}catch(_){}
+const b64dec=s=>new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g,'')),c=>c.charCodeAt(0)));
+const b64enc=str=>{const b=new TextEncoder().encode(str);let s='';for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode(...b.subarray(i,i+0x8000));return btoa(s)};
+const stable=v=>Array.isArray(v)?v.map(stable):(v&&typeof v==='object')?Object.fromEntries(Object.keys(v).sort().map(k=>[k,stable(v[k])])):v;
+const toText=o=>JSON.stringify(stable(o),null,2)+'\n';
+const gh=(path,opt={})=>fetch(API+path,{...opt,cache:'no-store',headers:{Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',Authorization:'Bearer '+TOKEN,...(opt.headers||{})}});
+
+async function readFile(name){ // 有 token 时读仓库最新版本，否则读网站上的静态文件
+  if(TOKEN){
+    const r=await gh(DIR+name+'.json?ref='+BRANCH);
+    if(r.ok){const j=await r.json();return {json:JSON.parse(b64dec(j.content)),sha:j.sha}}
+    if(r.status===401){tokenRejected();}
+  }
+  const r=await fetch('data/'+name+'.json',{cache:'no-store'});
+  if(!r.ok)throw new Error(name+' '+r.status);
+  return {json:await r.json(),sha:null};
+}
+
+const DATA={ratings:{},paper:{},douban:{items:[]},weread:{summary:null,books:[]}};
+const pending={paper:new Map(),ratings:new Map()};
+let flushing=false,flushTimer=null;
+const hasPending=()=>pending.ratings.size>0||pending.paper.size>0;
+function enqueue(file,id,value){pending[file].set(id,value);clearTimeout(flushTimer);flushTimer=setTimeout(flush,800);setStatus('正在保存…')}
+function commitMsg(file,changes,base){ // base 是写入前仓库里的版本
+  const [id,v]=changes[0],title=(v||base[id]||{}).title||id;
+  if(file==='paper')return changes.length>1?`更新 ${changes.length} 本纸质书`:v?`登记纸质书《${title}》`:`删除纸质书《${title}》`;
+  if(changes.length>1)return `更新 ${changes.length} 条标记`;
+  if(!v)return `取消标记《${title}》`;
+  return base[id]&&base[id].rating===v.rating?`更新《${title}》的理由`:`标记《${title}》：${v.label}`;
+}
+async function flush(){
+  if(flushing)return;
+  if(!TOKEN){setStatus('还没连接 GitHub，这次标记没有保存。',true);return}
+  flushing=true;let ok=false;
+  try{
+    for(const file of ['paper','ratings']){
+      const queue=pending[file];if(!queue.size)continue;
+      const changes=[...queue];queue.clear();
+      let saved=false;
+      try{
+        for(let attempt=0;attempt<3&&!saved;attempt++){
+          const r=await gh(DIR+file+'.json?ref='+BRANCH);
+          if(r.status===401){tokenRejected();throw new Error('auth')}
+          if(!r.ok)throw new Error('read '+r.status);
+          const j=await r.json(),base=JSON.parse(b64dec(j.content)),cur={...base};
+          for(const [id,v] of changes){if(v)cur[id]=v;else delete cur[id]}
+          const put=await gh(DIR+file+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({message:commitMsg(file,changes,base),content:b64enc(toText(cur)),sha:j.sha,branch:BRANCH,author:AUTHOR,committer:AUTHOR})});
+          if(put.ok){ // 用仓库的最新版本，再叠上还没保存的改动
+            const next={...cur};for(const [id,v] of queue){if(v)next[id]=v;else delete next[id]}
+            DATA[file]=next;saved=true;
+          }
+          else if(put.status===401){tokenRejected();throw new Error('auth')}
+          else if(put.status!==409&&put.status!==422)throw new Error('write '+put.status);
+        }
+        if(!saved)throw new Error('conflict');
+      }catch(e){
+        for(const [id,v] of changes)if(!queue.has(id))queue.set(id,v); // 失败的改动放回队列，下次再试
+        throw e;
+      }
+    }
+    ok=true;setStatus(hasPending()?'正在保存…':'已保存到 GitHub');
+  }catch(e){
+    if(e.message!=='auth')setStatus('保存失败，可能是网络问题。再点一次任意标记会重试。',true);
+  }finally{
+    flushing=false;
+    if(ok&&hasPending())flush(); // 保存期间又有新标记
+  }
+}
+
+// ---------- 统计部分 ----------
+function renderSummary(){
+  const W=DATA.weread,S=W.summary;if(!S)return;
+  $('#asof').textContent=`微信读书 · 数据截至 ${W.generatedAt} · 注册于 ${new Date(S.regist*1000).toISOString().slice(0,10)}`;
+  const st=Object.fromEntries(S.stat||[]);
+  $('#stats').innerHTML=[[Math.round(S.total/3600)+' 小时','累计阅读'],[S.days+' 天','有阅读的日子'],[st['读过'],'读过'],[st['读完'],'读完'],[st['笔记'],'笔记'],[S.readRate!=null?S.readRate+'%':'—','文字阅读占比（其余是听书）']]
+    .map(([b,s])=>`<div class="stat"><b class="num">${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
+  const ys=S.years.filter(y=>y[1]),svg=$('#years'),Wd=640,H=200,pl=36,pb=26,pt=14,thisYear=new Date().getFullYear();
+  const peak=Math.max(...ys.map(y=>y[1]/3600)),step=peak>200?100:50,max=Math.ceil(peak/step)*step;
+  const bw=(Wd-pl-10)/ys.length;let h='';
+  for(let t=0;t<=max;t+=step){const y=H-pb-(H-pb-pt)*t/max;h+=`<line x1="${pl}" x2="${Wd-6}" y1="${y}" y2="${y}" stroke="var(--line)"/><text x="${pl-6}" y="${y+4}" text-anchor="end">${t}</text>`}
+  ys.forEach(([yr,sec,days],i)=>{const v=sec/3600,bh=(H-pb-pt)*v/max,x=pl+i*bw+bw*.2,w=bw*.6,y=H-pb-bh;
+    h+=`<rect x="${x}" y="${y}" width="${w}" height="${bh}" rx="2" fill="${yr===thisYear?'var(--accent)':'var(--bar)'}"><title>${yr}：${hm(sec)}，${days}天</title></rect>`;
+    h+=`<text x="${x+w/2}" y="${y-4}" text-anchor="middle" class="num">${Math.round(v)}</text><text x="${x+w/2}" y="${H-8}" text-anchor="middle">${yr===thisYear?yr+'至今':yr}</text>`});
+  svg.innerHTML=h;
+  const bars=(el,rows)=>{const m=Math.max(...rows.map(r=>r[1]));$(el).innerHTML=rows.map(([k,v,lab])=>`<div class="bar"><span title="${esc(k)}">${esc(k)}</span><i style="width:${Math.max(2,100*v/m)}%"></i><span class="v num">${esc(lab)}</span></div>`).join('')};
+  bars('#cats',S.cats.map(([k,t,n])=>[k,t,`${Math.round(t/3600)}h · ${n}本`]));
+  bars('#longest',S.longest.map(([k,t])=>[k,t,`${Math.round(t/3600)}h`]));
+  bars('#authors',S.authors.map(([k,n,t])=>[k,parseInt(t),`${n}本 · ${String(t).replace(/小时.*/,'h')}`]));
+  const hv=S.time||[],hs=$('#hours'),HW=400,HH=140,hb=20,hmax=Math.max(...hv,1),hw=HW/24;let hh='';
+  hv.forEach((s,i)=>{const hr=(i+6)%24,bh=(HH-hb-6)*s/hmax;hh+=`<rect x="${i*hw+1}" y="${HH-hb-bh}" width="${hw-2}" height="${bh}" rx="1" fill="${hr>=18&&hr<=23?'var(--accent)':'var(--bar)'}"><title>${hr}点：${hm(s)}</title></rect>`;if(hr%3===0)hh+=`<text x="${i*hw+hw/2}" y="${HH-5}" text-anchor="middle">${hr}点</text>`});
+  hs.innerHTML=hh;$('#timeWord').textContent=S.timeWord||'';
+}
+
+// ---------- 标记部分 ----------
+let filter='trace',q='',shown=60,ROWS=[],byId={},lastCount=0;
+const R=()=>DATA.ratings;
+function rebuild(){
+  const BOOKS=DATA.weread.books.map(b=>({...b,src:'wr',db:null}));
+  const wr=Object.fromEntries(BOOKS.map(b=>[b.id,b]));
+  const extra=[];
+  for(const d of DATA.douban.items||[]){
+    const w=d.weread&&wr[d.weread];
+    if(w){if(!w.db||(d.stars||0)>(w.db.stars||0))w.db=d;continue}
+    extra.push({id:d.id,t:d.title,a:d.author||'',c:(d.tags||'').split(' ')[0],src:'db',db:d,f:1,n:0,h:0,r:0,s:(d.stars||0)*4+(d.comment?4:0)});
+  }
+  for(const [id,p] of Object.entries(DATA.paper))extra.push({id,t:p.title,a:p.author||'',c:'',src:'paper',f:1,n:0,h:0,r:0,s:20});
+  BOOKS.forEach(b=>{b.s2=b.s+(b.db?(b.db.stars||0)*2+4:0)});
+  extra.forEach(b=>{b.s2=b.s});
+  ROWS=BOOKS.concat(extra).sort((a,b)=>b.s2-a.s2);
+  byId=Object.fromEntries(ROWS.map(b=>[b.id,b]));
+  const nd=(DATA.douban.items||[]).length,merged=nd-extra.filter(x=>x.src==='db').length,np=Object.keys(DATA.paper).length;
+  $('#srcinfo').textContent=`来源：微信读书 ${BOOKS.length} 本`+(nd?` · 豆瓣 ${nd} 本（其中 ${merged} 本与微信读书重合，已合并），同步于 ${DATA.douban.syncedAt}`:'')+(np?` · 手动登记 ${np} 本`:'');
+}
+function pass(b){
+  if(q&&!(b.t+b.a).toLowerCase().includes(q))return false;
+  const r=R()[b.id]?.rating;
+  if(filter==='trace')return b.s2>0||r;
+  if(filter==='fin')return b.f;
+  if(filter==='paper')return b.src!=='wr'||!!b.db;
+  if(filter==='rated')return !!r;
+  return true;
+}
+const starStr=n=>'★'.repeat(n)+'☆'.repeat(5-n);
+function rowHTML(b){const x=R()[b.id],r=x?.rating||0,why=x?.why||'',d=b.db;
+  const meta=[
+    b.src==='db'?'<span class="src">豆瓣</span>':b.src==='paper'?'<span class="src">纸质书</span>':'',
+    b.a&&esc(b.a),b.c&&esc(b.c),
+    b.src==='wr'?(b.f?'<span class="fin">读完</span>':(b.p!=null?`读到 ${b.p}%`:'')):'',
+    b.n?`${b.n} 条划线/想法`:'',b.h>=60?`读了 ${Math.round(b.h/60)} 小时`:'',
+    b.r?`最近 ${new Date(b.r*1000).toISOString().slice(0,10)}`:'',
+    d?(d.stars?`<span class="stars" aria-label="豆瓣 ${d.stars} 星">豆瓣 ${starStr(d.stars)}</span>`:'豆瓣未打星'):'',
+    d&&d.date?`${d.date} 读过`:'',
+    b.src==='paper'?'<button class="del" type="button">删除登记</button>':''
+  ].filter(Boolean).map(v=>`<span>${v}</span>`).join('');
+  const quote=d&&d.comment?`<p class="quote" title="${esc(d.comment)}">“${esc(d.comment)}”</p>`:'';
+  return `<div class="row" data-id="${esc(b.id)}" data-r="${r}"><div><div class="t">${esc(b.t)}</div><div class="m">${meta}</div>${quote}</div>
+  <div class="rate">${[3,2,1,-1].map(v=>`<button data-v="${v}" aria-pressed="${r===v}">${LABEL[v]}</button>`).join('')}</div>
+  <div class="why"><input id="why-${esc(b.id)}" aria-label="原因" placeholder="${r===-1?'一句话：为什么不喜欢？（可选）':'一句话：为什么喜欢它？（可选）'}" value="${esc(why)}" maxlength="200"></div></div>`}
+function tallyHTML(n){const c={3:0,2:0,1:0,'-1':0};Object.values(R()).forEach(x=>{if(c[x.rating]!=null)c[x.rating]++});
+  return `当前列表 <b class="num">${n}</b> 本 · 已标记：最爱 <b class="num">${c[3]}</b> · 喜欢 <b class="num">${c[2]}</b> · 一般 <b class="num">${c[1]}</b> · 不喜欢 <b class="num">${c[-1]}</b>`}
+function render(){
+  const list=ROWS.filter(pass);lastCount=list.length;
+  $('#list').innerHTML=list.slice(0,shown).map(rowHTML).join('')||'<p class="status">没有符合条件的书。</p>';
+  $('#more').hidden=list.length<=shown;
+  $('#tally').innerHTML=tallyHTML(list.length);
+}
+const safeRender=()=>{if(!document.activeElement?.matches?.('.why input, #addform input'))render()};
+function setStatus(t,err){const s=$('#dbstatus');s.textContent=t;s.classList.toggle('err',!!err)}
+
+document.querySelectorAll('.chip[data-f]').forEach(b=>b.onclick=()=>{filter=b.dataset.f;shown=60;document.querySelectorAll('.chip[data-f]').forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
+let qt;$('#q').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{q=e.target.value.trim().toLowerCase();shown=60;render()},150)};
+$('#more').onclick=()=>{shown+=60;render()};
+
+function setRating(id,rating,why){
+  const b=byId[id]||{t:'',a:'',c:'',src:''},old=R()[id];
+  if(!rating){delete DATA.ratings[id];enqueue('ratings',id,null);return}
+  const rec={title:b.t||old?.title||'',author:b.a||old?.author||'',category:b.c||old?.category||'',source:b.src||old?.source||'wr',
+    rating,label:LABEL[rating],why:why??old?.why??'',updatedAt:new Date().toISOString()};
+  enqueue('ratings',id,rec);
+  DATA.ratings={...DATA.ratings,[id]:rec};
+}
+$('#list').addEventListener('click',e=>{
+  const del=e.target.closest('.del');
+  if(del){const id=del.closest('.row').dataset.id;
+    if(del.dataset.confirm!=='1'){del.dataset.confirm='1';del.textContent='确认删除？';setTimeout(()=>{if(del.isConnected){del.dataset.confirm='';del.textContent='删除登记'}},4000);return}
+    enqueue('paper',id,null);delete DATA.paper[id];
+    if(R()[id]){delete DATA.ratings[id];enqueue('ratings',id,null)}
+    rebuild();render();return}
+  const btn=e.target.closest('.rate button');if(!btn)return;
+  const row=btn.closest('.row'),id=row.dataset.id,v=+btn.dataset.v,cur=R()[id]?.rating||0,next=cur===v?0:v;
+  setRating(id,next);
+  row.dataset.r=next;row.querySelectorAll('.rate button').forEach(x=>x.setAttribute('aria-pressed',+x.dataset.v===next));
+  const wi=row.querySelector('.why input');if(wi)wi.placeholder=next===-1?'一句话：为什么不喜欢？（可选）':'一句话：为什么喜欢它？（可选）';
+  $('#tally').innerHTML=tallyHTML(lastCount);
+});
+$('#list').addEventListener('change',e=>{if(!e.target.matches('.why input'))return;const id=e.target.closest('.row').dataset.id,x=R()[id];if(!x)return;setRating(id,x.rating,e.target.value.trim())});
+
+$('#addform').addEventListener('submit',e=>{e.preventDefault();
+  const t=$('#add-t').value.trim();if(!t)return;
+  const dup=ROWS.find(b=>norm(b.t)===norm(t));
+  if(dup&&$('#add-t').dataset.dup!==norm(t)){$('#add-t').dataset.dup=norm(t);setStatus(`账本里已经有《${dup.t}》了，可以直接在列表里标记。确实是另一本的话，再点一次「登记」。`,true);return}
+  const id='p'+Date.now().toString(36),a=$('#add-a').value.trim(),rv=$('#add-r').value,w=$('#add-w').value.trim();
+  const rec={title:t,author:a,addedAt:new Date().toISOString()};
+  DATA.paper={...DATA.paper,[id]:rec};enqueue('paper',id,rec);
+  rebuild();
+  if(rv)setRating(id,+rv,w);
+  e.target.reset();delete $('#add-t').dataset.dup;render();
+});
+
+// ---------- 连接 GitHub ----------
+function tokenRejected(){setStatus('GitHub 拒绝了这个 token（可能过期或权限不够），请在页面底部重新连接。',true);setToken('')}
+function setToken(t){TOKEN=t;try{t?localStorage.setItem('gh-token',t):localStorage.removeItem('gh-token')}catch(_){}updateConn()}
+function updateConn(){
+  $('#mark').classList.toggle('readonly',!TOKEN);
+  $('#readonlyNote').hidden=!!TOKEN;
+  $('#connhelp').hidden=!!TOKEN;$('#disconnect').hidden=!TOKEN;
+  $('#connstate').textContent=TOKEN?'这台设备已连接 GitHub，标记会直接保存到仓库 burnetzhong/books。':'这台设备还没连接。连接后才能在网页上保存标记；不连接也可以浏览。';
+}
+$('#tokenform').addEventListener('submit',async e=>{e.preventDefault();
+  const t=$('#token').value.trim();if(!t)return;
+  $('#connstate').textContent='正在验证…';
+  try{
+    const r=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}`,{headers:{Authorization:'Bearer '+t,Accept:'application/vnd.github+json'}});
+    const j=await r.json();
+    if(!r.ok||!j.permissions?.push){$('#connstate').textContent='这个 token 不能写入 burnetzhong/books，请检查第 2、3 步的设置。';return}
+    $('#token').value='';setToken(t);await reloadMine();setStatus('已连接，可以开始标记了');
+  }catch(_){$('#connstate').textContent='验证失败，检查一下网络再试。'}
+});
+$('#disconnect').onclick=()=>{setToken('');setStatus('已断开，这台设备的 token 已删除')};
+
+// ---------- 加载 ----------
+async function reloadMine(){ // 重新读取标记和纸质书（其他设备可能改过）
+  if(flushing||hasPending())return;
+  const [r,p]=await Promise.all([readFile('ratings'),readFile('paper')]);
+  const changed=JSON.stringify(r.json)!==JSON.stringify(DATA.ratings)||JSON.stringify(p.json)!==JSON.stringify(DATA.paper);
+  DATA.ratings=r.json;DATA.paper=p.json;
+  if(changed){rebuild();safeRender()}
+}
+(async()=>{
+  updateConn();
+  try{
+    const [w,d,r,p]=await Promise.all(['weread','douban','ratings','paper'].map(readFile));
+    DATA.weread=w.json;DATA.douban=d.json;DATA.ratings=r.json;DATA.paper=p.json;
+    renderSummary();rebuild();render();
+  }catch(e){$('#list').innerHTML='<p class="status err">数据加载失败，刷新页面再试。</p>'}
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&TOKEN)reloadMine().catch(()=>{})});
+})();
+</script>
+</body>
+</html>

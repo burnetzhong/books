@@ -1,0 +1,23 @@
+# 电子书文件不进仓库
+*.epub
+*.pdf
+*.mobi
+*.azw3
+*.zip
+*.docx
+*.doc
+
+# 家族回忆录手稿：没有明确同意前不公开
+/血路弯弯/
+/弯路上的湘蛮子/
+# 下面几份文件含《血路弯弯》手稿的划线原文
+/微信读书笔记.md
+/.weread_cache/notes/CB_3oDAGjAGn50k6fy6gX0rY3I4.json
+/.weread_cache/notes/CB_5Lo8Y08X53LP6fr6gXBmRAHO.json
+/.weread_cache/notes/CB_CQwGMYGL03LP6fr6gX4pF5T7.json
+
+# 本机文件
+.DS_Store
+/log/
+/.claude/settings.local.json
+__pycache__/
