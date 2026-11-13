@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/autosync.sh\" pull",
+            "timeout": 60,
+            "statusMessage": "同步书房仓库…"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/scripts/autosync.sh\"",
+            "timeout": 60,
+            "statusMessage": "保存到 GitHub…"
+          }
+        ]
+      }
+    ]
+  }
+}
