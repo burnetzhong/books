@@ -12,17 +12,26 @@
 
 ## 数据来源（按优先级）
 
+这个文件夹是 git 仓库，推送到 GitHub 公开仓库 `burnetzhong/books`。网页版书房账本：https://burnetzhong.github.io/books/
+
 | 来源 | 位置 | 用途 |
 |------|------|------|
-| **书房账本标记** | Artifact https://claude.ai/artifact/3mhdUV43MYkoABV4sU2Wy5 ，用 `ArtifactData` 读 `ratings` 集合 | 我对书的最新评价，**以这里为准**。`rating`：3=最爱，2=喜欢，1=一般，-1=不喜欢；`why` 是我写的原因 |
-| **豆瓣「读过」** | 账本数据库 `sources/douban`（`items[]`：title / author / stars 1–5 / date / tags / comment / weread）；本地副本 `.douban/collect_<日期>.jsonl` | 370 本（截至 2026-09-27）的星级、读完日期和短评，含大量纸质书。`weread` 非空表示和微信读书的同一本书已合并 |
-| **手动登记的纸质书** | 账本数据库 `paper` 集合（title / author / addedAt），评价在 `ratings` 里，doc id 以 `p` 开头 | 豆瓣上也没有的纸质书 |
-| **旧豆瓣导出** | `Douban-history.xlsx`（2025-02） | 已被上面的同步数据取代，仅作备份 |
+| **我的标记** | `docs/data/ratings.json`（键是书的 id） | 我对书的评价，**以这里为准**。`rating`：3=最爱，2=喜欢，1=一般，-1=不喜欢；`why` 是我写的原因 |
+| **豆瓣「读过」** | `docs/data/douban.json`（`items[]`：id / title / author / stars 1–5 / date / tags / comment / weread） | 豆瓣上读过的书和短评，含大量纸质书。`weread` 非空表示和微信读书的同一本书已合并 |
+| **手动登记的纸质书** | `docs/data/paper.json`（键是 `p…`） | 豆瓣上也没有的纸质书，评价在 `ratings.json` 里 |
+| **微信读书快照** | `docs/data/weread.json`（`summary` 统计 + `books` 书单） | 网页统计用；用 `scripts/refresh_weread.py` 更新 |
 | **微信读书实时数据** | `weread-skills` skill | 书架、阅读进度、阅读统计、我的划线和想法、热门划线、书评 |
-| **旧导出** | `微信读书笔记.md`、`.weread_cache/notes/<bookId>.json`（2026-05-21 导出） | 离线备份；和实时数据冲突时以实时数据为准 |
+| **旧导出** | `Douban-history.xlsx`（2025-02）、`微信读书笔记.md`、`.weread_cache/`（2026-05-21） | 备份；和新数据冲突时以新数据为准 |
 | **本地电子书** | 文件夹里的 `.epub` / `.pdf` | 讨论时查原文、核对引用 |
 
-**账本 `ratings` 的 doc id**：微信读书的书用 bookId，豆瓣的书用 `db<豆瓣 subject id>`，手动登记的用 `p…`。
+**标记的 id**：微信读书的书用 bookId，豆瓣的书用 `db<豆瓣 subject id>`，手动登记的用 `p…`。
+
+**同步规则**：
+- 我在网页上点标记，会直接提交到 GitHub。读标记前先确认本地是最新的（每次对话开始和每轮回复结束时会自动 `git pull`；不确定就先运行 `bash scripts/autosync.sh pull`）。
+- 你改了 `ratings.json` / `paper.json` 之后，运行 `node scripts/fmt_json.js <文件>` 统一格式，和网页保存的格式保持一致。
+- 每轮回复结束时，`scripts/autosync.sh` 会自动提交并推送本地改动（配置在 `.claude/settings.json`），出错记录在 `log/autosync.log`。不需要手动 commit。
+- 仓库是公开的。**不要提交**：电子书文件、`血路弯弯/` 和 `弯路上的湘蛮子/` 手稿、含手稿原文的 `微信读书笔记.md` 和 `.weread_cache/notes/` 里的三份手稿笔记，以及任何 API key 或 token。这些已写进 `.gitignore`，新增类似文件时也要先加进去。
+- 旧的 claude.ai 账本（https://claude.ai/artifact/3mhdUV43MYkoABV4sU2Wy5）已停用，数据截至 2026-11-14 迁入本仓库，不要再往里写。
 
 注意：
 - 调微信读书接口前先 `source ~/.zshrc` 加载 `WEREAD_API_KEY`，并按 skill 文档要求带 `skill_version`。
@@ -33,8 +42,8 @@
 ## 推荐书
 
 **每次推荐前必须先做：**
-1. 读书房账本 `ratings` 的最新数据（我会不断新增标记）。
-2. 排除我读过或读过一部分的书，三个来源都要查：微信读书书架（`/shelf/sync`）、账本 `sources/douban`、账本 `paper`。
+1. 读 `docs/data/ratings.json` 的最新数据（我会不断新增标记）。
+2. 排除我读过或读过一部分的书，三个来源都要查：微信读书书架（`/shelf/sync`）、`docs/data/douban.json`、`docs/data/paper.json`。
 3. **按作者查，不能只按书名查**。同一本书常有不同译名，例如格罗斯曼的 Life and Fate 有《生活与命运》和《生存与命运》两个译名；我在豆瓣读过三分之一、打了 3 星，之前按书名核对就漏掉了。英文原版和中文译本也要当成同一本。
 4. 如果候选书的作者我读过别的作品，说明我对那本的评价，再判断是否仍然推荐。
 
@@ -62,8 +71,13 @@
 ## 同步豆瓣
 
 - 方法：在已登录豆瓣的 Chrome 里（Claude in Chrome 扩展），运行 `.douban/sync.js` 抓取「读过」列表；全量约 25 页，增量只抓前 1–2 页。
-- 抓到的数据存一份到 `.douban/collect_<日期>.jsonl`，然后和微信读书的书按书名去重，写入账本 `sources/douban`（整份替换这个文档）。
+- 抓到的数据存一份到 `.douban/collect_<日期>.jsonl`，然后和微信读书的书按书名去重，整份写入 `docs/data/douban.json`（`syncedAt` 改成当天）。
 - 只读取豆瓣，不在豆瓣上做任何修改。
+
+## 更新微信读书数据
+
+- `source ~/.zshrc && python3 scripts/refresh_weread.py`，会重新生成 `docs/data/weread.json`。
+- 网页「我读到的你」那段文字是 2026-09-27 手写的，数字不会自动更新。
 
 ---
 

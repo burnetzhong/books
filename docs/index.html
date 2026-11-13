@@ -190,6 +190,7 @@ const LABEL={3:'最爱',2:'喜欢',1:'一般','-1':'不喜欢'};
 const $=s=>document.querySelector(s);
 const hm=s=>{s=Math.round(s||0);const h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?`${h}小时${m}分`:`${m}分钟`};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const day=ts=>new Date(ts*1000).toLocaleDateString('sv-SE'); // 本地时间的 YYYY-MM-DD
 const norm=t=>String(t||'').split(/[:：（(【\[]/)[0].replace(/[\s·•\-—_,.，。!！?？"“”'’]/g,'').toLowerCase();
 
 // ---------- GitHub 存取 ----------
@@ -267,7 +268,7 @@ async function flush(){
 // ---------- 统计部分 ----------
 function renderSummary(){
   const W=DATA.weread,S=W.summary;if(!S)return;
-  $('#asof').textContent=`微信读书 · 数据截至 ${W.generatedAt} · 注册于 ${new Date(S.regist*1000).toISOString().slice(0,10)}`;
+  $('#asof').textContent=`微信读书 · 数据截至 ${W.generatedAt} · 注册于 ${day(S.regist)}`;
   const st=Object.fromEntries(S.stat||[]);
   $('#stats').innerHTML=[[Math.round(S.total/3600)+' 小时','累计阅读'],[S.days+' 天','有阅读的日子'],[st['读过'],'读过'],[st['读完'],'读完'],[st['笔记'],'笔记'],[S.readRate!=null?S.readRate+'%':'—','文字阅读占比（其余是听书）']]
     .map(([b,s])=>`<div class="stat"><b class="num">${esc(b)}</b><span>${esc(s)}</span></div>`).join('');
@@ -324,7 +325,7 @@ function rowHTML(b){const x=R()[b.id],r=x?.rating||0,why=x?.why||'',d=b.db;
     b.a&&esc(b.a),b.c&&esc(b.c),
     b.src==='wr'?(b.f?'<span class="fin">读完</span>':(b.p!=null?`读到 ${b.p}%`:'')):'',
     b.n?`${b.n} 条划线/想法`:'',b.h>=60?`读了 ${Math.round(b.h/60)} 小时`:'',
-    b.r?`最近 ${new Date(b.r*1000).toISOString().slice(0,10)}`:'',
+    b.r?`最近 ${day(b.r)}`:'',
     d?(d.stars?`<span class="stars" aria-label="豆瓣 ${d.stars} 星">豆瓣 ${starStr(d.stars)}</span>`:'豆瓣未打星'):'',
     d&&d.date?`${d.date} 读过`:'',
     b.src==='paper'?'<button class="del" type="button">删除登记</button>':''
