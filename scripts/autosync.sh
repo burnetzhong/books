@@ -13,7 +13,7 @@ note() { echo "$(date '+%F %T') $*" >> "$LOG"; }
 if [ "$1" != "pull" ]; then
   git add -A
   if ! git diff --cached --quiet; then
-    files=$(git diff --cached --name-only | sed 's|.*/||' | head -3 | paste -sd '、' -)
+    files=$(git diff --cached --name-only | sed 's|.*/||' | head -3 | awk '{printf "%s%s", (NR>1 ? "、" : ""), $0}')
     n=$(git diff --cached --name-only | wc -l | tr -d ' ')
     [ "$n" -gt 3 ] && files="$files 等 $n 个文件"
     git commit -q -m "自动保存：$files" || note "提交失败"
