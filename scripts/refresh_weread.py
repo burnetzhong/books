@@ -89,7 +89,7 @@ def main():
         f = 1 if finished or prog == 100 else 0
         books.append({
             "id": re.sub(r"[^A-Za-z0-9_\-.~:@+]", "_", str(bid)),
-            "t": title, "a": author or "", "c": (category or "").split("-")[0],
+            "t": title, "a": author or "", "c": (category or "").split("-")[0], "cc": category or "",
             "f": f, "n": notes, "p": prog, "r": read_ts or 0, "h": mins,
             "s": round(notes * 2 + f * 10 + mins / 30, 2),
         })

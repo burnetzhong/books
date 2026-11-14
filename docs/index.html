@@ -53,6 +53,8 @@ svg text{fill:var(--muted);font-size:11px;font-family:var(--sans)}
 .insight p{margin:0}
 .toolbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--line)}
 .toolbar input[type=search]{flex:1 1 200px;min-width:0;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit}
+.toolbar select{flex:0 1 auto;max-width:100%;padding:7px 8px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px}
+.toolbar select.on{border-color:var(--accent);color:var(--accent)}
 .chip{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
 .chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .chip.primary{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -140,6 +142,7 @@ svg text{fill:var(--muted);font-size:11px;font-family:var(--sans)}
     <div class="notice" id="readonlyNote" hidden>现在是只读模式。要在这台设备上保存标记，先在页面底部<a href="#connect">连接 GitHub</a>。</div>
     <div class="toolbar">
       <input type="search" id="q" placeholder="搜索书名或作者" aria-label="搜索书名或作者">
+      <select id="cat" aria-label="按分类查看"><option value="">全部分类</option></select>
       <button class="chip" data-f="trace" aria-pressed="true">有阅读痕迹</button>
       <button class="chip" data-f="fin" aria-pressed="false">读完的</button>
       <button class="chip" data-f="paper" aria-pressed="false">豆瓣 / 纸质书</button>
@@ -153,6 +156,7 @@ svg text{fill:var(--muted);font-size:11px;font-family:var(--sans)}
         <input id="add-t" required placeholder="书名" maxlength="120" aria-label="书名">
         <input id="add-a" placeholder="作者（可选）" maxlength="80" aria-label="作者">
         <select id="add-r" aria-label="评价"><option value="">评价（可选）</option><option value="3">最爱</option><option value="2">喜欢</option><option value="1">一般</option><option value="-1">不喜欢</option></select>
+        <select id="add-c" aria-label="分类"><option value="">分类（可选）</option></select>
         <input id="add-w" placeholder="一句话原因（可选）" maxlength="200" aria-label="原因">
         <button type="submit" class="chip">登记</button>
       </form>
@@ -213,7 +217,7 @@ async function readFile(name){ // 有 token 时读仓库最新版本，否则读
   return {json:await r.json(),sha:null};
 }
 
-const DATA={ratings:{},paper:{},douban:{items:[]},weread:{summary:null,books:[]}};
+const DATA={ratings:{},paper:{},douban:{items:[]},weread:{summary:null,books:[]},categories:{}};
 const pending={paper:new Map(),ratings:new Map()};
 let flushing=false,flushTimer=null;
 const hasPending=()=>pending.ratings.size>0||pending.paper.size>0;
@@ -290,7 +294,32 @@ function renderSummary(){
 }
 
 // ---------- 标记部分 ----------
-let filter='trace',q='',shown=60,ROWS=[],byId={},lastCount=0;
+let filter='trace',q='',cat='',shown=60,ROWS=[],byId={},lastCount=0;
+
+// ---------- 分类 ----------
+// 微信读书的二级分类、豆瓣标签统一归到下面这些大类；categories.json 里可以按书单独指定
+const CATS=['小说与文学','科幻奇幻','推理悬疑','散文与纪实','文学鉴赏与写作','历史','政治军事','哲学','社会文化','心理','经济商业','科学','计算机与AI','个人成长与学习','人物传记','健康','生活与艺术','期刊杂志'];
+const WR_SUB={'精品小说-科幻小说':'科幻奇幻','精品小说-玄幻小说':'科幻奇幻','精品小说-悬疑推理':'推理悬疑','精品小说-恐怖惊悚':'推理悬疑','精品小说-民俗志怪':'推理悬疑',
+  '文学-散文杂著':'散文与纪实','文学-纪实文学':'散文与纪实','文学-文学鉴赏':'文学鉴赏与写作','文学-语言文字':'文学鉴赏与写作','历史-历史小说':'小说与文学'};
+const WR_TOP={'文学':'小说与文学','精品小说':'小说与文学','男生小说':'小说与文学','原版书':'小说与文学','童书':'生活与艺术','历史':'历史','政治军事':'政治军事','哲学宗教':'哲学',
+  '社会文化':'社会文化','心理':'心理','经济理财':'经济商业','科学技术':'科学','计算机':'计算机与AI','个人成长':'个人成长与学习','教育学习':'个人成长与学习','人物传记':'人物传记',
+  '医学健康':'健康','生活百科':'生活与艺术','艺术':'生活与艺术','期刊杂志':'期刊杂志'};
+const DB_TAGS=[ // 按优先级从高到低：一本书有多个标签时取最靠前的那类
+  ['科幻奇幻','科幻 硬科幻 玄幻 三体 刘慈欣'],['推理悬疑','侦探小说 悬疑 推理 东野圭吾 阿加莎·克里斯蒂 犯罪小说'],['散文与纪实','散文 纪实文学'],['文学鉴赏与写作','文学理论 写作'],
+  ['人物传记','自传'],['历史','历史 中国历史 西方历史 中国近代史 中古历史 人类历史 历史学'],['政治军事','政治 中国政治 外国政治 西方政治 中国研究'],['哲学','哲学 西方哲学 中国哲学 哲学史 思想'],
+  ['心理','心理学 社会心理学 心智 情感'],['科学','科学 科普 自然科学 物理 量子物理 物理学 数学'],['计算机与AI','IT 互联网 人工智能 产品设计'],['经济商业','商业 金融 管理 经济学'],
+  ['个人成长与学习','成功学 人生 工具书 教育'],['健康','健康'],['社会文化','传播学 社会学 法律 人性 文化 人类学 人文'],['期刊杂志','读库'],['生活与艺术','漫画'],
+  ['小说与文学','文学 外国文学 中国文学 现当代文学 当代文学 中国现当代文学 中国现当代 日本文学 俄国文学 小说 中文小说 世界名著 东北文学 英文原著 English 世纪三部曲 武侠 村上春树 乔治·奥威尔 反乌托邦 短篇小说']
+].map(([c,s])=>[c,new Set(s.split(' '))]);
+function catOf(b){
+  const o=DATA.categories[b.id];if(o)return o;
+  if(b.src==='paper')return b.pc||'未分类';
+  if(b.cc)return WR_SUB[b.cc]||WR_TOP[b.cc.split('-')[0]]||'未分类';
+  const tags=(b.db?.tags||'').split(/\s+/).filter(Boolean);
+  for(const [c,set] of DB_TAGS)if(tags.some(x=>set.has(x)))return c;
+  return '未分类';
+}
+$('#add-c').insertAdjacentHTML('beforeend',CATS.map(c=>`<option>${c}</option>`).join(''));
 const R=()=>DATA.ratings;
 function rebuild(){
   const BOOKS=DATA.weread.books.map(b=>({...b,src:'wr',db:null}));
@@ -301,15 +330,17 @@ function rebuild(){
     if(w){if(!w.db||(d.stars||0)>(w.db.stars||0))w.db=d;continue}
     extra.push({id:d.id,t:d.title,a:d.author||'',c:(d.tags||'').split(' ')[0],src:'db',db:d,f:1,n:0,h:0,r:0,s:(d.stars||0)*4+(d.comment?4:0)});
   }
-  for(const [id,p] of Object.entries(DATA.paper))extra.push({id,t:p.title,a:p.author||'',c:'',src:'paper',f:1,n:0,h:0,r:0,s:20});
+  for(const [id,p] of Object.entries(DATA.paper))extra.push({id,t:p.title,a:p.author||'',c:'',pc:p.category||'',src:'paper',f:1,n:0,h:0,r:0,s:20});
   BOOKS.forEach(b=>{b.s2=b.s+(b.db?(b.db.stars||0)*2+4:0)});
   extra.forEach(b=>{b.s2=b.s});
   ROWS=BOOKS.concat(extra).sort((a,b)=>b.s2-a.s2);
+  ROWS.forEach(b=>{b.cat=catOf(b)});
   byId=Object.fromEntries(ROWS.map(b=>[b.id,b]));
   const nd=(DATA.douban.items||[]).length,merged=nd-extra.filter(x=>x.src==='db').length,np=Object.keys(DATA.paper).length;
   $('#srcinfo').textContent=`来源：微信读书 ${BOOKS.length} 本`+(nd?` · 豆瓣 ${nd} 本（其中 ${merged} 本与微信读书重合，已合并），同步于 ${DATA.douban.syncedAt}`:'')+(np?` · 手动登记 ${np} 本`:'');
 }
-function pass(b){
+function pass(b){return passBase(b)&&(!cat||b.cat===cat)}
+function passBase(b){
   if(q&&!(b.t+b.a).toLowerCase().includes(q))return false;
   const r=R()[b.id]?.rating;
   if(filter==='trace')return b.s2>0||r;
@@ -322,7 +353,7 @@ const starStr=n=>'★'.repeat(n)+'☆'.repeat(5-n);
 function rowHTML(b){const x=R()[b.id],r=x?.rating||0,why=x?.why||'',d=b.db;
   const meta=[
     b.src==='db'?'<span class="src">豆瓣</span>':b.src==='paper'?'<span class="src">纸质书</span>':'',
-    b.a&&esc(b.a),b.c&&esc(b.c),
+    b.a&&esc(b.a),b.cat!=='未分类'&&esc(b.cat),
     b.src==='wr'?(b.f?'<span class="fin">读完</span>':(b.p!=null?`读到 ${b.p}%`:'')):'',
     b.n?`${b.n} 条划线/想法`:'',b.h>=60?`读了 ${Math.round(b.h/60)} 小时`:'',
     b.r?`最近 ${day(b.r)}`:'',
@@ -336,7 +367,17 @@ function rowHTML(b){const x=R()[b.id],r=x?.rating||0,why=x?.why||'',d=b.db;
   <div class="why"><input id="why-${esc(b.id)}" aria-label="原因" placeholder="${r===-1?'一句话：为什么不喜欢？（可选）':'一句话：为什么喜欢它？（可选）'}" value="${esc(why)}" maxlength="200"></div></div>`}
 function tallyHTML(n){const c={3:0,2:0,1:0,'-1':0};Object.values(R()).forEach(x=>{if(c[x.rating]!=null)c[x.rating]++});
   return `当前列表 <b class="num">${n}</b> 本 · 已标记：最爱 <b class="num">${c[3]}</b> · 喜欢 <b class="num">${c[2]}</b> · 一般 <b class="num">${c[1]}</b> · 不喜欢 <b class="num">${c[-1]}</b>`}
+function renderCats(){ // 下拉框里每类的数量：按当前筛选和搜索计算，不受所选分类本身影响
+  const n={};let all=0;for(const b of ROWS)if(passBase(b)){n[b.cat]=(n[b.cat]||0)+1;all++}
+  const order=Object.keys(n).filter(c=>c!=='未分类').sort((a,b)=>n[b]-n[a]||CATS.indexOf(a)-CATS.indexOf(b));
+  if(n['未分类'])order.push('未分类');
+  if(cat&&!n[cat])order.push(cat);
+  const sel=$('#cat');
+  sel.innerHTML=`<option value="">全部分类 · ${all}</option>`+order.map(c=>`<option value="${esc(c)}">${esc(c)} · ${n[c]||0}</option>`).join('');
+  sel.value=cat;sel.classList.toggle('on',!!cat);
+}
 function render(){
+  renderCats();
   const list=ROWS.filter(pass);lastCount=list.length;
   $('#list').innerHTML=list.slice(0,shown).map(rowHTML).join('')||'<p class="status">没有符合条件的书。</p>';
   $('#more').hidden=list.length<=shown;
@@ -346,6 +387,7 @@ const safeRender=()=>{if(!document.activeElement?.matches?.('.why input, #addfor
 function setStatus(t,err){const s=$('#dbstatus');s.textContent=t;s.classList.toggle('err',!!err)}
 
 document.querySelectorAll('.chip[data-f]').forEach(b=>b.onclick=()=>{filter=b.dataset.f;shown=60;document.querySelectorAll('.chip[data-f]').forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
+$('#cat').onchange=e=>{cat=e.target.value;shown=60;render()};
 let qt;$('#q').oninput=e=>{clearTimeout(qt);qt=setTimeout(()=>{q=e.target.value.trim().toLowerCase();shown=60;render()},150)};
 $('#more').onclick=()=>{shown+=60;render()};
 
@@ -378,7 +420,7 @@ $('#addform').addEventListener('submit',e=>{e.preventDefault();
   const dup=ROWS.find(b=>norm(b.t)===norm(t));
   if(dup&&$('#add-t').dataset.dup!==norm(t)){$('#add-t').dataset.dup=norm(t);setStatus(`账本里已经有《${dup.t}》了，可以直接在列表里标记。确实是另一本的话，再点一次「登记」。`,true);return}
   const id='p'+Date.now().toString(36),a=$('#add-a').value.trim(),rv=$('#add-r').value,w=$('#add-w').value.trim();
-  const rec={title:t,author:a,addedAt:new Date().toISOString()};
+  const pc=$('#add-c').value,rec={title:t,author:a,addedAt:new Date().toISOString(),...(pc?{category:pc}:{})};
   DATA.paper={...DATA.paper,[id]:rec};enqueue('paper',id,rec);
   rebuild();
   if(rv)setRating(id,+rv,w);
@@ -417,8 +459,8 @@ async function reloadMine(){ // 重新读取标记和纸质书（其他设备可
 (async()=>{
   updateConn();
   try{
-    const [w,d,r,p]=await Promise.all(['weread','douban','ratings','paper'].map(readFile));
-    DATA.weread=w.json;DATA.douban=d.json;DATA.ratings=r.json;DATA.paper=p.json;
+    const [w,d,r,p,c]=await Promise.all(['weread','douban','ratings','paper','categories'].map(readFile));
+    DATA.weread=w.json;DATA.douban=d.json;DATA.ratings=r.json;DATA.paper=p.json;DATA.categories=c.json;
     renderSummary();rebuild();render();
   }catch(e){$('#list').innerHTML='<p class="status err">数据加载失败，刷新页面再试。</p>'}
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&TOKEN)reloadMine().catch(()=>{})});
