@@ -19,7 +19,8 @@
 | **我的标记** | `docs/data/ratings.json`（键是书的 id） | 我对书的评价，**以这里为准**。`rating`：3=最爱，2=喜欢，1=一般，-1=不喜欢；`why` 是我写的原因 |
 | **豆瓣「读过」** | `docs/data/douban.json`（`items[]`：id / title / author / stars 1–5 / date / tags / comment / weread） | 豆瓣上读过的书和短评，含大量纸质书。`weread` 非空表示和微信读书的同一本书已合并 |
 | **手动登记的纸质书** | `docs/data/paper.json`（键是 `p…`） | 豆瓣上也没有的纸质书，评价在 `ratings.json` 里 |
-| **微信读书快照** | `docs/data/weread.json`（`summary` 统计 + `books` 书单） | 网页统计用；用 `scripts/refresh_weread.py` 更新 |
+| **微信读书快照** | `docs/data/weread.json`（`summary` 统计 + `books` 书单，`cc` 是完整的二级分类） | 网页统计用；用 `scripts/refresh_weread.py` 更新 |
+| **分类补充** | `docs/data/categories.json`（书的 id → 大类） | 网页「按分类查看」用。微信读书没有分类（多为导入的英文书）或豆瓣没有标签的书，在这里手动指定；也可以用来纠正分错的书。大类列表和自动归类规则在 `docs/index.html` 的 `CATS` / `WR_SUB` / `WR_TOP` / `DB_TAGS` |
 | **微信读书实时数据** | `weread-skills` skill | 书架、阅读进度、阅读统计、我的划线和想法、热门划线、书评 |
 | **旧导出** | `Douban-history.xlsx`（2025-02）、`微信读书笔记.md`、`.weread_cache/`（2026-05-21） | 备份；和新数据冲突时以新数据为准 |
 | **本地电子书** | 文件夹里的 `.epub` / `.pdf` | 讨论时查原文、核对引用 |
@@ -79,6 +80,7 @@
 - `source ~/.zshrc && python3 scripts/refresh_weread.py`，会重新生成 `docs/data/weread.json`。
 - 判断一本书是否读完，以书架的 `finishReading=1` 或进度接口里的 `finishTime` 为准（`weread.json` 里对应 `f=1`），**不要看进度百分比**。例如《存在主义：给什么都有了的人看的哲学》2026-11-12 已标记读完，进度仍显示 55%。
 - 网页「我读到的你」那段文字是 2026-09-27 手写的，数字不会自动更新。
+- 更新微信读书或豆瓣数据后，在网页「全部」里选「未分类」看看有没有新书没归类，认得出的补进 `docs/data/categories.json`。
 
 ---
 
