@@ -968,5 +968,15 @@
     "title": "哲学家们都干了些什么?: 史上最严谨又最不严肃的哲学史",
     "updatedAt": "2026-11-14T15:19:48.009Z",
     "why": ""
+  },
+  "db26644070": {
+    "author": "基恩·金 (Gene Kim)、凯文·贝尔 (Kevin Behr)、乔治·斯帕福德 (George Spafford)",
+    "category": "IT",
+    "label": "喜欢",
+    "rating": 2,
+    "source": "db",
+    "title": "凤凰项目: 一个IT运维的传奇故事",
+    "updatedAt": "2026-11-14T15:22:04.167Z",
+    "why": ""
   }
 }
