@@ -77,6 +77,7 @@
 ## 更新微信读书数据
 
 - `source ~/.zshrc && python3 scripts/refresh_weread.py`，会重新生成 `docs/data/weread.json`。
+- 判断一本书是否读完，以书架的 `finishReading=1` 或进度接口里的 `finishTime` 为准（`weread.json` 里对应 `f=1`），**不要看进度百分比**。例如《存在主义：给什么都有了的人看的哲学》2026-11-12 已标记读完，进度仍显示 55%。
 - 网页「我读到的你」那段文字是 2026-09-27 手写的，数字不会自动更新。
 
 ---
